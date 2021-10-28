@@ -1,0 +1,312 @@
+﻿@model IEnumerable<ProektIT_193238.Models.Laptop>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="" style="background-color: #fff; min-height: 87.5vh;">
+    <div class="image" style="width: 100%; height: 400px; position: relative; text-align: center;">
+        <img src="~/Content/Images/laptops-header.jpg" style="width: 100%; height: 100%;" />
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2;">
+            <h2 style="text-align: center; font-size: 7em; font-weight: bold; color: #fff;">Laptops</h2>
+        </div>
+    </div>
+
+    <div class="container-fluid choose" style="background-color: gray; display: flex;">
+        <marquee scrollamount="14" style="color: white; font-size: 3.4em; font-weight: bold;">CHOOSE A LAPTOP FOR YOUR NEEDS --- BEST OFFERS FOR YOUR MONEY --- CHECK OUT OUR LAST DEALS</marquee>
+    </div>
+
+    <div class="container-fluid" style="background-color: darkgray; height: 30px;">
+        <marquee scrollamount="16" style="color: white; font-size: 1.4em; font-weight: bold;" onmouseover="this.stop()" onmouseout="this.start()">
+            <span style="font-weight: bold;">Latest:</span> &nbsp;
+            @{
+                var list = Model.ToList();
+                list.Reverse();
+                var budget = list[0];
+                var highEnd = list[0];
+                var counter = 0;
+                foreach (var item in list)
+                {
+                    counter++;
+                    if (counter < 5)
+                    {
+                        <a href="/Laptops/Details/@item.Id" style="color: white; text-decoration: none; font-weight: ;">@item.Name &nbsp; &nbsp; &nbsp;</a>
+                    }
+                }
+            }
+        </marquee>
+    </div>
+
+
+    <div style="background-color: #fff; width: 80%; margin: auto; padding-top: 20px;">
+        @if (User.IsInRole("Administrator"))
+        {
+            <p style="font-size: 3em; color: #111; font-weight: bold; cursor: default;">
+                Add a new Laptop
+                <a href="/Laptops/Create">
+                    <img class="ratebutton" src="~/Content/Logos/add-documents.svg" style="width: 50px; height: 50px; cursor: pointer;" />
+                </a>
+            </p>
+        }
+        <table class="table" id="LaptopsTable">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ImgURL)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="trLaptop" style="text-align: center;">
+                        <td>
+                            <img src="@Html.DisplayFor(modelItem => item.ImgURL)" style="width:150px; height: 150px; border-radius: 5px;" />
+                        </td>
+                        <td>
+                            <span style="font-weight: bold; font-size: 15px;">@Html.DisplayFor(modelItem => item.Name)</span>
+                        </td>
+                        <td>
+                            <span style="font-weight: bold; font-size: 15px;">@Html.DisplayFor(modelItem => item.Description)</span>
+                        </td>
+                        <td>
+                            <span style="color: red; font-weight: bold; font-size: 20px;">@Html.DisplayFor(modelItem => item.Price) €</span>
+                        </td>
+                        <td>
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+                            }
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-success" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn button", id = "details" })
+                            }
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                <button id="@item.Id" data-component-name="@item.Name" class="btn btn-danger js-delete">Delete</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+    <div>
+        @{
+            Html.RenderPartial("Deals");
+        }
+    </div>
+</div>
+
+<style>
+    .pagination > li > a, .pagination > li > span {
+        color: #00a328;
+    }
+
+    .pagination > li > a, .pagination > li > span:hover {
+        color: #00a328;
+    }
+
+    .pagination > li.active > a, .pagination > li.active > span {
+        background-color: #00a328;
+    }
+
+    .pagination > li.active > a, .pagination > li.active > span:focus {
+        background-color: #00a328 !important;
+        color: white;
+    }
+
+    .trLaptop td {
+        padding: 15px!important;
+        vertical-align: middle !important;
+    }
+    .image:after {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: rgba(0,0,0,0.4);
+    }
+
+    .ratebutton:hover {
+        filter: invert(48%) sepia(52%) saturate(6505%) hue-rotate(117deg) brightness(95%) contrast(101%);
+    }
+
+    .swal2-popup {
+        font-size: 1.5rem;
+    }
+
+    .choose {
+        width: 100%;
+        height: 120px;
+        background-color: gray;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #details {
+        width: 150px;
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+        #details:hover {
+            color: #fff;
+        }
+
+    .button {
+        backface-visibility: hidden;
+        background: #00a328;
+        border: 0;
+        border-radius: .375rem;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: inline-block;
+        font-family: Circular,Helvetica,sans-serif;
+        font-size: 1.125rem;
+        font-weight: 700;
+        letter-spacing: -.01em;
+        line-height: 1.3;
+        padding: 1rem 1.25rem;
+        position: relative;
+        text-align: left;
+        text-decoration: none;
+        transform: translateZ(0) scale(1);
+        transition: transform .2s;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+        .button:disabled {
+            color: #787878;
+            cursor: auto;
+        }
+
+        .button:not(:disabled):hover {
+            transform: scale(1.05);
+        }
+
+            .button:not(:disabled):hover:active {
+                transform: scale(1.05) translateY(.125rem);
+            }
+
+        .button:focus {
+            outline: 0 solid transparent;
+        }
+
+            .button:focus:before {
+                border-width: .125rem;
+                content: "";
+                left: calc(-1*.375rem);
+                pointer-events: none;
+                position: absolute;
+                top: calc(-1*.375rem);
+                transition: border-radius;
+                user-select: none;
+            }
+
+            .button:focus:not(:focus-visible) {
+                outline: 0 solid transparent;
+            }
+
+        .button:not(:disabled):active {
+            transform: translateY(.125rem);
+        }
+</style>
+
+@section scripts{
+    <script>
+        var tableFinal;
+        $(document).ready(function () {
+            var table = $("#LaptopsTable").DataTable();
+            var searchText = window.location.search.substring(1);
+            table.search(searchText).draw();
+            tableFinal = table;
+            if (searchText.length > 0) {
+                $(this).scrollTop(370);
+            }
+        })
+        $("#LaptopsTable .js-delete").on("click", function () {
+            var button = $(this);
+            new swal({
+                title: 'Are you sure?',
+                text: "Do you want to delete " + button.attr("data-component-name"),
+                icon: 'warning',
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire("Deleted!", "Your data is deleted.", "success");
+                    $.ajax({
+                        url: "/Laptops/Delete/" + button.attr("id"),
+                        method: "GET",
+                        success: function () {
+                            tableFinal.row(button.parents("tr")).remove().draw();
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    })
+                } else if (
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    Swal.fire("Canceled", "Your data is not deleted", "error");
+                }
+            })
+        })
+
+        @*$("#LaptopsTable .js-delete").on("click", function () {
+            var button = $(this);
+            bootbox.confirm({
+                message: "Do you want to delete " + button.attr("data-component-name"),
+                buttons: {
+                    confirm: {
+                        label: 'Yes',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'No',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/Laptops/Delete/" + button.attr("id"),
+                            method: "GET",
+                            success: function () {
+                                tableFinal.row(button.parents("tr")).remove().draw();
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        })
+                    }
+                }
+            })
+        })*@
+    </script>
+}

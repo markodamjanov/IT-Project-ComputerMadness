@@ -1,0 +1,265 @@
+﻿@model ProektIT_193238.Models.Review
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="main" style="min-height: 87.5vh;">
+    <div class="container-center">
+        <div class="first-col">
+            <h2 style="text-align: center; font-weight: bold; font-size: 3em; color: #00a328; padding-bottom: 20px;">Leave a Review</h2>
+
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal inputs">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group hide">
+                        <div class="col-md-offset-2 col-md-10">
+                            @Html.EditorFor(model => model.CurrentDate, new { htmlAttributes = new { @class = "form-control getDate date-value" } })
+
+                            @Html.ValidationMessageFor(model => model.CurrentDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group userDiv">
+                        @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control userTextBox" } })
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.Category, new SelectList(Model.Categories), new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div id="starss" class="stars">
+                                <img id="1" src="~/Content/Images/whiteStar.png" onclick="rateClick(1)" onmouseover="rateOver(1)" onmouseout="rateOut(1)" class="reviewStar" style="width: 35px; height: 35px;">
+                                <img id="2" src="~/Content/Images/whiteStar.png" onclick="rateClick(2)" onmouseover="rateOver(2)" onmouseout="rateOut(2)" class="reviewStar" style="width: 35px; height: 35px;">
+                                <img id="3" src="~/Content/Images/whiteStar.png" onclick="rateClick(3)" onmouseover="rateOver(3)" onmouseout="rateOut(3)" class="reviewStar" style="width: 35px; height: 35px;">
+                                <img id="4" src="~/Content/Images/whiteStar.png" onclick="rateClick(4)" onmouseover="rateOver(4)" onmouseout="rateOut(4)" class="reviewStar" style="width: 35px; height: 35px;">
+                                <img id="5" src="~/Content/Images/whiteStar.png" onclick="rateClick(5)" onmouseover="rateOver(5)" onmouseout="rateOut(5)" class="reviewStar" style="width: 35px; height: 35px;">
+                            </div>
+                            @Html.EditorFor(model => model.Rating, new { htmlAttributes = new { @class = "form-control rateTextBox" } })
+                            @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.Comment, new { rows = "4", cols = "20", maxlength = "250", @class = "form-control", placeholder = "Leave a comment...", id = "comment" })
+                            <p id="textareaCount" style="color: gray;">0/250</p>
+                            @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10 buttonsReview" style="width: 100%;">
+                            <input type="submit" value="Add Review" class="btn btn-default buttonSubmit" />
+                            @Html.ActionLink("Back to Reviews", "Index", new object { }, new { @class = "btn btn-primary buttonGoBack" })
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="second-col">
+            <img src="~/Content/Images/Review.jpg" style="width: 100%; height: 100%;"></img>
+            @*<section id="socialLoginForm">
+                    @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                </section>*@
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background: url(/Content/Images/review-add.jpg);
+    }
+    .reviewStar {
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .colorStars {
+        background: url("/Content/Images/yellowStar.png");
+        background-repeat: no-repeat;
+        background-size: 35px 35px;
+    }
+
+    .colorStarsSmall {
+        background: url("/Content/Images/yellowStar.png");
+        background-repeat: no-repeat;
+        background-size: 35px 35px;
+    }
+
+    .rateTextBox {
+        display: none;
+    }
+
+    .userDiv {
+        display: none;
+    }
+
+    .main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .container-center {
+        border-radius: 10px;
+        background: #fff;
+        display: block;
+        width: 60%;
+        min-height: 50%;
+        display: grid;
+        grid-template-columns: 55% 45%;
+        animation: fadeIn 0.7s;
+    }
+
+    .second-col img {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    .inputs {
+        margin-left: 20%;
+        margin-top: 3%;
+    }
+
+        .inputs div {
+            margin-bottom: 15px;
+        }
+
+    .buttonsReview {
+        margin-left: -1%;
+    }
+
+    .buttonSubmit {
+        border: none;
+        border-radius: 25px;
+        background-color: #00a328;
+        color: #fff;
+        font-size: 1.4em;
+        font-weight: bold;
+        width: 230px;
+        height: 40px;
+        margin-top: 17px;
+        margin-left: -20px;
+        margin-right: 25px;
+        transition: all 0.4s;
+    }
+
+        .buttonSubmit:hover {
+            background-color: #5e5e5e;
+            color: white;
+            transition: all 0.4s;
+        }
+
+    .buttonGoBack {
+        border: none;
+        border-radius: 25px;
+        background-color: #005eff;
+        color: #fff;
+        font-size: 1.4em;
+        font-weight: bold;
+        width: 170px;
+        height: 40px;
+        margin-top: 17px;
+        margin-left: -20px;
+        transition: all 0.4s;
+    }
+
+        .buttonGoBack:hover {
+            background-color: #5e5e5e;
+            color: white;
+            transition: all 0.4s;
+        }
+
+    #comment {
+        cursor: pointer;
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.7);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @@media screen and (max-width: 1024px) {
+        .container-center {
+            display: grid;
+            grid-template-columns: 100%;
+            width: 100%;
+        }
+
+        .second-col {
+            display: none !important;
+        }
+
+        .inputs {
+            width: 100% !important;
+        }
+    }
+</style>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        var userName = '@HttpContext.Current.User.Identity.Name';
+        $(".userTextBox").val(userName);
+        function rateClick(rate) {
+            $(".rateTextBox").val(rate);
+            for (var i = 1; i <= 5; i++) {
+                $("#" + i).removeClass("colorStars");
+                @*let x = document.getElementById(5 - i);
+                x.classList.remove("colorStars");*@
+                }
+                for (var i = 1; i <= rate; i++) {
+                $("#" + i).addClass("colorStars");
+                @*let x = document.getElementById(rate - i);
+                x.classList.add("colorStars");*@
+            }
+        }
+        function rateOver(rate) {
+            for (var i = 1; i <= rate; i++) {
+                $("#" + i).addClass("colorStarsSmall");
+            }
+        }
+        function rateOut(rate) {
+            for (var i = 1; i <= rate; i++) {
+                $("#" + i).removeClass("colorStarsSmall");
+            }
+        }
+        $('textarea').on("input", function () {
+            var maxlength = $(this).attr("maxlength");
+            var currentLength = $(this).val().length;
+
+            var counter = document.getElementById("textareaCount");
+
+            counter.innerHTML = currentLength + "/250";
+        });
+
+        $(window).on("load", function () {            var currDate = new Date();            var year = currDate.getFullYear();            var month = (1 + currDate.getMonth()).toString();            month = month.length > 1 ? month : '0' + month;            var day = currDate.getDate().toString();            day = day.length > 1 ? day : '0' + day;            var hours = currDate.getHours().toString();            hours = hours.length > 1 ? hours : '0' + hours;            var mins = currDate.getMinutes().toString();            mins = mins.length > 1 ? mins : '0' + mins;            formatedDate = month + '.' + day + '.' + year + " " + hours + ":" + mins;            $(".getDate").val(formatedDate);        })
+
+    </script>
+}

@@ -1,0 +1,349 @@
+﻿@model IEnumerable<ProektIT_193238.Models.Review>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="" style="background-color: #fff; min-height: 87.5vh;">
+    <div class="image" style="width: 100%; height: 400px; position: relative; text-align: center;">
+        <img src="~/Content/Images/reviews-header.jpg" style="width: 100%; height: 100%;" />
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2;">
+            <h2 style="text-align: center; font-size: 7em; font-weight: bold; color: #fff;">Reviews</h2>
+        </div>
+    </div>
+
+    <div style="background-color: #fff; width: 80%; margin: auto; padding-top: 30px;">
+        @if (User.IsInRole("Administrator") || User.IsInRole("User"))
+        {
+            <p style="font-size: 4em; color: #111; font-weight: bold; cursor: default;">
+                Rate Us
+                <a href="/Reviews/Create">
+                    <img class="ratebutton" src="~/Content/Logos/add.svg" style="width: 50px; height: 50px; cursor: pointer;" />
+                </a>
+            </p>
+        }
+        <table class="table" id="tableReviews">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CurrentDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Category)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Comment)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Rating)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="reviewsRow">
+                        <td style="width: 100px; text-align: center;">
+                            @Html.DisplayFor(modelItem => item.CurrentDate)
+                        </td>
+                        <td style="font-weight: bold;">
+                            @{
+                                string[] temp = (item.UserName).Split('@');
+                            }
+                            @Html.DisplayFor(modelItem => temp[0])
+                        </td>
+                        <td style="color: gray">
+                            @Html.DisplayFor(modelItem => item.Category)
+                        </td>
+                        <td style="max-width: 200px;">
+                            @Html.DisplayFor(modelItem => item.Comment)
+                        </td>
+                        <td>
+                            @for (int i = 0; i < item.Rating; i++)
+                            {
+                                <img src="~/Content/Images/whiteStar.png" class="colorStars" style="width: 25px; height: 25px;" />
+                            }
+                        </td>
+                        <td class="buttonDelete" style="text-align: center;">
+                            @if (User.Identity.Name == item.UserName || User.IsInRole("Administrator"))
+                            {
+                                @*@Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })*@
+                                <button id="@item.Id" class="btn button js-delete">Delete</button>
+                            }
+                        </td>
+                    </tr>
+                                }
+            </tbody>
+        </table>
+    </div>
+    <div class="container-fluid overallRating" style="margin-top: 10px;">
+        <div class="innerOverallRating">
+            <h1 style="font-size: 4.5em; font-weight: bold;">Overall Rating</h1>
+            @{
+                var list = Model.ToList();
+                float sum = 0;
+                var numElements = list.Count;
+                foreach (var item in list)
+                {
+                    sum += item.Rating;
+                }
+                float rating = sum / numElements;
+                float ratingImg = (float)Math.Round(rating, 2) * 100;
+                float lastDigits = ratingImg % 100;
+                float numStars = ratingImg % 1000;
+                int numFinal = (int)numStars / 100;
+                if (lastDigits >= 50)
+                {
+                    numFinal += 1;
+                }
+                for (int i = 0; i < 5; i++)
+                {
+                    if (i < numFinal)
+                    {
+                        <img src="~/Content/Images/whiteStar.png" class="colorStarsOverall" style="width: 50px; height: 50px;" />
+                    }
+                    else
+                    {
+                        <img src="~/Content/Images/whiteStar.png" class="" style="width: 50px; height: 50px;" />
+                    }
+                }
+                <h2 style="font-size: 4em; font-weight: bold;">@Math.Round(rating, 2)</h2>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    .overallRating {
+        height: 350px;
+        background-color: #ebebeb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .innerOverallRating {
+        text-align: center;
+    }
+
+    .pagination > li > a, .pagination > li > span {
+        color: #00a328;
+    }
+
+    .pagination > li > a, .pagination > li > span:hover {
+        color: #00a328;
+    }
+
+    .pagination > li.active > a, .pagination > li.active > span {
+        background-color: #00a328;
+    }
+
+    .pagination > li.active > a, .pagination > li.active > span:focus {
+        background-color: #00a328 !important;
+        color: white;
+    }
+
+    .colorStars {
+        background: url("/Content/Images/yellowStar.png");
+        background-repeat: no-repeat;
+        background-size: 25px 25px;
+    }
+
+    .colorStarsOverall {
+        background: url("/Content/Images/yellowStar.png");
+        background-repeat: no-repeat;
+        background-size: 50px 50px;
+    }
+
+    .image:after {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: rgba(0,0,0,0.4);
+    }
+
+    .ratebutton:hover {
+        filter: invert(48%) sepia(52%) saturate(6505%) hue-rotate(117deg) brightness(95%) contrast(101%);
+    }
+
+    .swal2-popup {
+        font-size: 1.5rem;
+    }
+
+    .reviewsRow td {
+        font-size: 1.3em;
+        height: 70px;
+    }
+
+    .buttonDelete button {
+        width: 100px;
+        height: 40px;
+        font-size: 1em;
+        text-align: center;
+    }
+
+    .buttonDelete button:hover {
+        color: #fff;
+    }
+
+    .button {
+        backface-visibility: hidden;
+        background: red;
+        border: 0;
+        border-radius: .375rem;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: inline-block;
+        font-family: Circular,Helvetica,sans-serif;
+        font-size: 1.125rem;
+        font-weight: 700;
+        letter-spacing: -.01em;
+        line-height: 1.3;
+        padding: 1rem 1.25rem;
+        position: relative;
+        text-align: left;
+        text-decoration: none;
+        transform: translateZ(0) scale(1);
+        transition: transform .2s;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+        .button:disabled {
+            color: #787878;
+            cursor: auto;
+        }
+
+        .button:not(:disabled):hover {
+            transform: scale(1.05);
+        }
+
+            .button:not(:disabled):hover:active {
+                transform: scale(1.05) translateY(.125rem);
+            }
+
+        .button:focus {
+            outline: 0 solid transparent;
+        }
+
+            .button:focus:before {
+                border-width: .125rem;
+                content: "";
+                left: calc(-1*.375rem);
+                pointer-events: none;
+                position: absolute;
+                top: calc(-1*.375rem);
+                transition: border-radius;
+                user-select: none;
+            }
+
+            .button:focus:not(:focus-visible) {
+                outline: 0 solid transparent;
+            }
+
+        .button:not(:disabled):active {
+            transform: translateY(.125rem);
+        }
+</style>
+
+@section Scripts {
+    <script>
+        var tableFinal;
+        $(document).ready(function () {
+            var table = $("#tableReviews").DataTable({
+                "order": [[0, "desc"]]
+            });
+            $("#tableReviews_filter").addClass("hide");
+            tableFinal = table;
+        })
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        $("#tableReviews .js-delete").on("click", function () {
+            var button = $(this);
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Do you want to delete your review?",
+                icon: 'warning',
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire("Deleted!", "Your review is deleted.", "success");
+                    $.ajax({
+                        url: "/Reviews/Delete/" + button.attr("id"),
+                        method: "GET",
+                        success: function () {
+                            tableFinal.row(button.parents("tr")).remove().draw();
+
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    })
+                } else if (
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Your review is not deleted.'
+                    })
+                }
+            })
+        })
+        @*$("#tableReviews .js-delete").on("click", function () {
+            var button = $(this);
+            bootbox.confirm({
+                message: "Do you want to delete your review?",
+                buttons: {
+                    confirm: {
+                        label: 'Yes',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'No',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/Reviews/Delete/" + button.attr("id"),
+                            method: "GET",
+                            success: function () {
+                                tableFinal.row(button.parents("tr")).remove().draw();
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        })
+                    }
+                }
+            })
+        })*@
+    </script>
+}

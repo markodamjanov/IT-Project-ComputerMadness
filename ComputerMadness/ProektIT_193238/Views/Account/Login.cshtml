@@ -1,0 +1,166 @@
+﻿@using ProektIT_193238.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+
+<div class="main" style="height: 87.5vh;">
+    <div class="container-center" style="background-color: #fff;">
+        <div class="second-col">
+            <img src="~/Content/Images/laptop.jpg" style="width: 100%; height: 100%;"></img>
+            @*<section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>*@
+        </div>
+        <div class="first-col">
+            <section id="loginForm">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h1 style="font-size: 3.2em; font-weight: bold; color: #00a328; margin-bottom: 5%; margin-left: 27%;">Login</h1>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group" style="margin-top: 4%; margin-bottom: 5%;">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group" style="margin-bottom: 4%;">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10 buttons">
+                            <input type="submit" value="Log in" class="buttonLogin" />
+                            <p style="margin-left: -10px; margin-top: 10px;">Not a member? <a href="/Account/Register" style="text-decoration: none;">Register</a></p>
+                            @*@Html.ActionLink("Register", "Register", new object { }, new { @class = "buttonRegister" })*@
+                        </div>
+                        <div>
+                        </div>
+                    </div>
+                    <p>
+                    </p>
+                    @* Enable this once you have account confirmation enabled for password reset functionality
+                        <p>
+                            @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                    </p>*@
+                }
+            </section>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+<style>
+    body {
+        background: url("/Content/Images/background.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .container-center {
+        border-radius: 10px;
+        width: 1100px;
+        height: 450px;
+        box-shadow: 5px 10px 40px gray;
+        animation: fadeIn 0.7s;
+    }
+    .container-center{
+        display: grid;
+        grid-template-columns: 55% 45%;
+    }
+    .cont div{
+        display: inline-block;
+    }
+    .buttonLogin {
+        border: none;
+        border-radius: 25px;
+        background-color: #00a328;
+        color: #fff;
+        font-size: 1.4em;
+        padding: 4px 30px;
+        font-weight: bold;
+        transition: all 0.4s;
+    }
+    .buttonLogin:hover {
+        background-color: #5e5e5e;
+        transition: all 0.4s;
+    }
+    .buttonRegister {
+        border: none;
+        border-radius: 25px;
+        background-color: #00a328;
+        color: #fff;
+        font-size: 1.4em;
+        font-weight: bold;
+        padding: 7px 20px;
+        text-decoration: none;
+        margin-right: 10px;
+        transition: all 0.4s;
+    }
+    .buttonRegister:hover {
+        background-color: #5e5e5e;
+        color: #fff;
+        text-decoration: none;
+        transition: all 0.4s;
+    }
+    .cont {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 500px;
+    }
+    .second-col img{
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+    #loginForm {
+        width: 100%;
+        height: 100%;
+        margin-left: 10%;
+        margin-top: 15%;
+    }
+    .buttons {
+        margin-left: 27%;
+    }
+
+    @@media screen and (max-width: 1024px) {
+        .container-center {
+            display: grid;
+            grid-template-columns: 100%;
+            width: 100%;
+        }
+
+        .second-col {
+            display: none !important;
+        }
+
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.7);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+</style>

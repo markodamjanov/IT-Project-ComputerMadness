@@ -1,0 +1,95 @@
+﻿@model ProektIT_193238.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="main" style="min-height: 87.5vh;">
+    <div class="container-center">
+        <h2 style="padding-top: 5px; color: #00a328; font-size: 3.5em; font-weight: bold; text-align: center;">Welcome</h2>
+
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <h4 style="border-bottom: 1px solid gray; font-weight: bold; text-align: center; padding-bottom: 17px;">Create a new account</h4>
+
+            <div class="inputs">
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" class="buttonRegister" value="Register" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<style>
+    body{
+        background: url("/Content/Images/background.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .container-center {
+        border-radius: 10px;
+        background: #fff;
+        display: block;
+        width: 600px;
+        height: 470px;
+        box-shadow: 5px 10px 40px gray;
+        animation: fadeIn 0.7s;
+    }
+    .inputs {
+        margin-left: 30%;
+        margin-top: 3%;
+    }
+    .buttonRegister {
+        border: none;
+        border-radius: 25px;
+        background-color: #00a328;
+        color: #fff;
+        font-size: 1.4em;
+        font-weight: bold;
+        width: 250px;
+        height: 40px;
+        margin-top: 17px;
+        margin-left: -80px;
+        transition: all 0.4s;
+    }
+    .buttonRegister:hover {
+        background-color: #5e5e5e;
+        transition: all 0.4s;
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.7);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+</style>

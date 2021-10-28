@@ -1,0 +1,193 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+<div class="container-fluid main" style="min-height: 87.5vh;">
+    <div class="row">
+        <div class="col-md-7 grid-item-1 fadeTo">
+            <div>
+                <h1 class="" style="color: #00a328; font-size: 4.7em;" id="aboutUs">About Us</h1>
+                <p>Computer Madness is a shop created in Skopje, Macedonia in 2021 where you can buy a custom built PC or a Laptop. Our mission is to create the absolute best custom PCs for every individual’s specific wants and needs. Whether you want the most realistic and immersive gaming experience or ultra-fast workstation performance. We use only superior components paired with award-winning integration and offer professional overclocking to support the most demanding PC usage. You can also choose a Laptop that will be great for gaming or a laptop that will be great for work and be able to handle every task. We work with the best brands that offer the best laptops and we guarantee the quality and performance you are getting. We strive to offer every individual customer the best possible PC or Laptop experience from start to finish no matter what PC or Laptop they have purchased from us.</p>
+            </div>
+        </div>
+        <div class="col-md-4 grid-item-2 fadeTo">
+            <div class="image">
+                <img src="~/Content/Images/me-photo.jpg" style="width: 100%; height: auto;" />
+                <div class="image-overlay">
+                    <h3 style="font-weight: bold; border-bottom: 2px solid white; width: 150px; padding-bottom: 5px;">About Me</h3>
+                    <p style="width: 90%;">Student at Faculty of Computer Science & Engineering. Can do HTML, CSS and Javascript. Have some experience in C, C++ and Java. Full Stack Developer in future.</p>
+                </div>
+            </div>
+            <div>
+                <h2 id="founder">FOUNDER</h2>
+                <h3>Marko Damjanov</h3>
+                <div class="logos">
+                    <a href="https://www.facebook.com/marko.damjanov.7/" target="_blank" style="cursor: pointer;">
+                        <img src="~/Content/Logos/facebook-3.svg" style="width: 30px; height: 30px;" />
+                    </a>
+                    <a href="https://www.instagram.com/marko.damjanov02/?hl=en" target="_blank" style="cursor: pointer;">
+                        <img src="~/Content/Logos/instagram-2-1.svg" style="width: 30px; height: 30px;" />
+                    </a>
+                    <a href="https://github.com/markodamjanov" target="_blank" style="cursor: pointer;">
+                        <img src="~/Content/Logos/github-icon-1.svg" style="width: 30px; height: 30px;" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .grid-item-1 h1 {
+        padding-bottom: 5px;
+        font-weight: bold;
+        position: relative;
+    }
+
+    #aboutUs::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 0.03em;
+        left: 0;
+        bottom: 0;
+        background-color: black;
+        animation: bottom 2.7s;
+    }
+
+
+    .grid-item-1 p {
+        text-align: justify;
+        font-size: 1.6em;
+    }
+
+    .grid-item-1 {
+        min-height: 600px;
+        margin-left: 3%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .grid-item-2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        flex-direction: column;
+    }
+
+    .image {
+        position: relative;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        width: 60%;
+    }
+
+    .image img {
+        display: block;
+        border-radius: 20px;
+    }
+
+    .image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        opacity: 0;
+        border-radius: 20px;
+        font-size: 1.5em;
+        cursor: default;
+        transition: opacity 0.3s;
+    }
+
+    .image-overlay > * {
+        transform: translateY(20px);
+        transition: transform 0.3s;
+    }
+
+    .image-overlay:hover {
+        opacity: 1;
+    }
+
+    .image-overlay:hover > * {
+        transform: translateY(0);
+    }
+
+    .grid-item-2 h2 {
+        width: 250px;
+        margin: auto;
+    }
+
+    .fadeTo {
+        opacity: 0;
+    }
+
+    #founder {
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    #founder::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 0.05em;
+        left: 0;
+        bottom: 0;
+        background-color: black;
+        animation: bottom 2.7s;
+    }
+
+    .logos a {
+        margin-right: 10px;
+    }
+
+    .logos a:hover {
+        text-decoration: none;
+    }
+
+    @@keyframes bottom {
+        from {
+            transform: scale(0);
+        }
+
+        to {
+            transform: scale(1);
+        }
+    }
+
+    @@keyframes left {
+        from {
+            left: 10%;
+        }
+
+        to {
+            left: 0;
+        }
+    }
+
+    .main {
+        background: linear-gradient(90deg, rgba(218,218,218,1) 59%, rgba(255,255,255,1) 100%, rgba(0,212,255,1) 100%);
+        background-size: cover;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(window).on("load", function () {
+                $(".fadeTo").animate({ opacity: 1 }, 1300)
+
+                $("#aboutUs").animate
+            })
+        });
+    </script>
+}

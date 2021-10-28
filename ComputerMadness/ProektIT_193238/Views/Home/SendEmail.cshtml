@@ -1,0 +1,218 @@
+﻿@model ProektIT_193238.Models.Email
+
+@{
+    ViewBag.Title = "SendEmail";
+}
+
+<div class="container-fluid" style="background-color: #fff; min-height: 87.5vh; padding: 0; width: 100%;">
+    <h2 id="header">Please get in touch and our expert support team will answer all your questions</h2>
+    <hr />
+
+    <div class="grid" style="width: 100%; margin: auto;">
+        <div class="grid-item-1">
+            <div class="contact-header" style="">
+                <h3 style="font-size: 2.5em; font-weight: bold; padding-bottom: 20px; text-align: center;">Contact Form</h3>
+            </div>
+            <div class="contact-form contact" style="margin-left: 5%;">
+                @using (Html.BeginForm("SendEmail", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "email-form" }))
+                {
+                    <div class="row" style="width: 1000px; margin: auto;">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Subject, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control", placeholder = "Report problem or Ask a question", id = "modelSubject" } })
+                                    @* @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })*@
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(model => model.Body, new { rows = "3", cols = "20", @class = "form-control", placeholder = "Message", id = "modelBody" })
+                                    @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.UserEmail, new { htmlAttributes = new { @class = "form-control", placeholder = "ex. user@gmail.com", id = "modelEmail" } })
+                                    @*@Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })*@
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { type = "password", placeholder = "Gmail Password", @class = "form-control", id = "modelPassword" } })
+                                    @* @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <div class="form-group submit-form-field">
+                                <input id="submitEmailForm" type="submit" value="Send" class="btn btn-success" style="color:white; width: 150px; margin-left: 20%;" />
+                                <div class="alert alert-success emailSent hide" style="margin-left: 20%;">
+                                    <p id="message" style="color: green; text-align: center; font-size: 1.3em;" msg="@ViewBag.Message">@ViewBag.Message</p>
+                                </div>
+                                <div class="alert alert-danger emailError hide" style="margin-left: 20%;">
+                                    <p id="errorMessage" style="color: red; text-align: center; font-size: 1.3em;" msg="@ViewBag.errorMessage">@ViewBag.errorMessage</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="grid-item-2" style="width: 100%">
+            <div>
+                <h3 style="font-size: 2.5em; font-weight: bold; text-align: center;">Where to Find Us</h3>
+            </div>
+            <div id="map-container-google-1" class="z-depth-1-half map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23721.968459886335!2d21.41081910873838!3d41.99499456309274!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1354144ac20fc381%3A0xe2a89a562b0da73d!2sCentar%2C%20Skopje%201000!5e0!3m2!1sen!2smk!4v1629537210240!5m2!1sen!2smk" frameborder="0"
+                        style="border:0" allowfullscreen></iframe>
+            </div>
+            <div class="addresses hide">
+                <address>
+                    Nikola Kljusev<br />
+                    <abbr title="Phone">Phone:</abbr>
+                    02389485
+                </address>
+
+                <address>
+                    <strong>Support:</strong>   <a href="mailto:Support@computermadness.com">Support@computermadness.com</a><br />
+                    <strong>Marketing:</strong> <a href="mailto:Marketing@computermadness.com">Marketing@computermadness.com</a>
+                </address>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    #header {
+        padding-top: 20px;
+        text-align: center;
+        font-weight: bold;
+        height: auto;
+        width: 80%;
+        margin: auto;
+        color: #00a328;
+    }
+
+    .contact-header {
+        margin-left: 12px;
+    }
+
+    .contact div {
+        margin-bottom: 20px;
+    }
+
+    #modelBody {
+        cursor: pointer;
+    }
+
+    #submitEmailForm {
+        cursor: pointer;
+    }
+
+    #submitEmailForm:focus {
+        outline: none;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 100%;
+        grid-gap: 20px;
+    }
+
+    .grid-item-1 {
+        min-height: auto;
+    }
+
+    .grid-item-2 {
+        height: 450px;
+    }
+
+    .contact-form input {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 1.2em;
+        cursor: pointer;
+    }
+
+    .contact-form textarea {
+        font-size: 1.2em;
+    }
+
+    .existing-user input {
+        display: inline-block;
+    }
+
+    .existing-user {
+        font-size: 1.2em;
+    }
+
+    .contact-submit {
+        margin-top: 20px;
+        width: 100px;
+        height: auto;
+        text-align: center;
+    }
+
+    .map-container {
+        overflow: hidden;
+        height: 84.8%;
+    }
+
+    .map-container iframe {
+        height: 100%;
+        width: 100%;
+    }
+
+    .inputs {
+        margin: auto;
+        display: grid;
+        grid-template-columns: 50% 50%;
+    }
+
+    .swal2-popup {
+        font-size: 1.5rem;
+    }
+</style>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#submitEmailForm').prop('disabled', true);
+
+            $(window).on("keyup", function () {
+                if ($("#modelBody").val() !== "" && ($("#modelEmail").val().includes("@@gmail.com") && $("#modelPassword").val() !== "")) {
+                    $('#submitEmailForm').prop('disabled', false);
+                }
+                else {
+                    $('#submitEmailForm').prop('disabled', true);
+                }
+            })
+
+            $(window).on("load", function () {
+                var message = $("#message").attr("msg");
+                if (message === "Email Sent. We will get back to you as soon as we can.") {
+                    @* alert("Your email has been sent. We will get back to you as soon as we can.");*@
+                    new swal("Email Sent", "We will get back to you as soon as we can.", "success")
+                    $(".emailSent").removeClass("hide");
+                    $("#modelSubject").val("");
+                    $("#modelBody").val("");
+                    $("#modelEmail").val("");
+                    $("#modelPassword").val("");
+                }
+                var message = $("#errorMessage").attr("msg");
+                if (message === "Something went wrong, make sure you entered valid google email!") {
+                    new swal("Something went wrong", "Make sure you entered valid google email!", "error")
+                    $(".emailError").removeClass("hide");
+                }
+            })
+        })
+    </script>
+}

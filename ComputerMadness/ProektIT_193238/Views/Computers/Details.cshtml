@@ -1,0 +1,209 @@
+﻿@model ProektIT_193238.Models.Computer
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="container" style="background-color: #fff; min-height: 87.5vh;">
+    <h2 style="color: #00a328; font-size: 3em; font-weight: bold;">@Html.DisplayFor(model => model.Name)</h2>
+
+    <div>
+        <hr />
+        <div class="cont">
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Manufacturer)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Manufacturer)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CPU)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.CPU)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.GPU)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.GPU)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.HDD)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.HDD)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.SSD)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.SSD)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.RAM)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.RAM)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.OS)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.OS)
+                    </dd>
+
+                    <dt>
+                        <p class="priceName">Price</p>
+                    </dt>
+
+                    <dd class="priceDetails">
+                        @Html.DisplayFor(model => model.Price) €
+                    </dd>
+
+                </dl>
+            </div>
+            <div>
+                <img src="@Html.DisplayFor(model => model.ImgURL)" style="width: 400px; height:400px;" />
+            </div>
+        </div>
+    </div>
+    <p>
+        @if (User.IsInRole("Administrator"))
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+        }
+        @Html.ActionLink("Back to List", "Index", new object { }, new { @class = "btn button", id = "goBack" })
+    </p>
+</div>
+
+
+<style>
+    .cont {
+        display: grid;
+        grid-template-columns: 60% 40%;
+    }
+
+    .dl-horizontal dt, dd {
+        font-size: 1.25em;
+        text-align: left;
+        margin-bottom: 5px;
+    }
+
+    .priceName {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: red;
+        margin-top: 23px;
+    }
+
+    .priceDetails {
+        font-size: 2.5em;
+        font-weight: bold;
+        color: red;
+        margin-top: 20px;
+    }
+
+    #goBack {
+        width: 150px;
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+        #goBack:hover {
+            color: #fff;
+        }
+
+    .button {
+        backface-visibility: hidden;
+        background: #00a328;
+        border: 0;
+        border-radius: .375rem;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: inline-block;
+        font-family: Circular,Helvetica,sans-serif;
+        font-size: 1.125rem;
+        font-weight: 700;
+        letter-spacing: -.01em;
+        line-height: 1.3;
+        padding: 1rem 1.25rem;
+        position: relative;
+        text-align: left;
+        text-decoration: none;
+        transform: translateZ(0) scale(1);
+        transition: transform .2s;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+        .button:disabled {
+            color: #787878;
+            cursor: auto;
+        }
+
+        .button:not(:disabled):hover {
+            transform: scale(1.05);
+        }
+
+            .button:not(:disabled):hover:active {
+                transform: scale(1.05) translateY(.125rem);
+            }
+
+        .button:focus {
+            outline: 0 solid transparent;
+        }
+
+            .button:focus:before {
+                border-width: .125rem;
+                content: "";
+                left: calc(-1*.375rem);
+                pointer-events: none;
+                position: absolute;
+                top: calc(-1*.375rem);
+                transition: border-radius;
+                user-select: none;
+            }
+
+            .button:focus:not(:focus-visible) {
+                outline: 0 solid transparent;
+            }
+
+        .button:not(:disabled):active {
+            transform: translateY(.125rem);
+        }
+</style>

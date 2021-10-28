@@ -1,0 +1,123 @@
+﻿@model IEnumerable<ProektIT_193238.Models.Computer>
+
+@{
+    ViewBag.Title = "Deals";
+}
+
+@{
+    var list = Model.ToList();
+    list.Reverse();
+    var budget = list[0];
+    var highEnd = list[0];
+    foreach (var item in list)
+    {
+
+        if (item.Price <= 500)
+        {
+            budget = item;
+            break;
+        }
+    }
+    foreach (var item in list)
+    {
+        if (item.Price >= 1500)
+        {
+            highEnd = item;
+            break;
+        }
+    }
+}
+
+<div style="background-color: #ebebeb">
+    <h2 style="text-align: center; font-size: 4em; font-weight: bold; color: #00a328; padding-top: 20px;">Deals</h2>
+
+    <div class="container-fluid" style="text-align: center; width: 90%; margin: auto;">
+        <div class="" id="secondRow" style="height: auto; padding-top: 5px; padding-bottom: 30px;">
+            <a href="/Computers/Details/@list[0].Id" id="latest">
+                <h3 style="color: #00a328; font-size: 2.3em; font-weight: bold;">Latest Computer</h3>
+                <div class="latest" style="margin-right: 20px; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                    @{
+                        <div>
+                            <img src="@Html.DisplayFor(modelItem => list[0].ImgURL)" style="width:220px; height: 220px; border-radius: 5px; margin-top: 20px;" />
+                        </div>
+                        <div>
+                            <span style="font-size: 1.8em; font-weight: bold;">@Html.DisplayFor(modelItem => list[0].Name)</span>
+                        </div>
+                        <div>
+                            <span style="font-size: 1.5em;">@Html.DisplayFor(modelItem => list[0].Description)</span>
+                        </div>
+                        <div>
+                            <span style="font-size: 2em; color: red; font-weight: bold;">@Html.DisplayFor(modelItem => list[0].Price) €</span>
+                        </div>
+                    }
+                </div>
+            </a>
+            <a href="/Computers/Details/@budget.Id" id="latest">
+                <h3 style="color: #00a328; font-size: 2.3em; font-weight: bold;">Latest Budget Computer</h3>
+                <div class="latest" style="margin-right: 20px; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                    @{
+                        <div>
+                            <img src="@Html.DisplayFor(modelItem => budget.ImgURL)" style="width:220px; height: 220px; border-radius: 5px; margin-top: 20px;" />
+                        </div>
+                        <div>
+                            <span style="font-size: 1.8em; font-weight: bold;">@Html.DisplayFor(modelItem => budget.Name)</span>
+                        </div>
+                        <div>
+                            <span style="font-size: 1.5em;">@Html.DisplayFor(modelItem => budget.Description)</span>
+                        </div>
+                        <div>
+                            <span style="font-size: 2em; color: red; font-weight: bold;">@Html.DisplayFor(modelItem => budget.Price) €</span>
+                        </div>
+                    }
+                </div>
+            </a>
+            <a href="/Computers/Details/@highEnd.Id" id="latest">
+                <h3 style="color: #00a328; font-size: 2.3em; font-weight: bold;">Latest High-End Computer</h3>
+                <div class="latest" style="margin-right: 20px; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                    @{
+                        <div>
+                            <img src="@Html.DisplayFor(modelItem => highEnd.ImgURL)" style="width:220px; height: 220px; border-radius: 5px; margin-top: 20px;" />
+                        </div>
+                        <div>
+                            <span style="font-size: 1.8em; font-weight: bold;">@Html.DisplayFor(modelItem => highEnd.Name)</span>
+                        </div>
+                        <div>
+                            <span style="font-size: 1.5em;">@Html.DisplayFor(modelItem => highEnd.Description)</span>
+                        </div>
+                        <div>
+                            <span style="font-size: 2em; color: red; font-weight: bold;">@Html.DisplayFor(modelItem => highEnd.Price) €</span>
+                        </div>
+                    }
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    #latest {
+        cursor: pointer;
+        color: black;
+        text-decoration: none;
+        margin-right: 5px;
+    }
+
+    .latest {
+        width: 420px;
+        height: auto;
+        border: 1px solid gray;
+        border-radius: 10px;
+    }
+
+    #secondRow div {
+        margin-bottom: 10px;
+    }
+
+    #secondRow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+</style>
+

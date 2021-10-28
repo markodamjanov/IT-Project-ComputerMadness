@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.all.min.js"></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .footerIcons a {
+            margin-right: 5px;
+        }
+
+            .footerIcons a:hover {
+                text-decoration: none;
+            }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <img src="~/Content/Images/Logo.png" style="width 50px; height: 50px; margin-right: 5px;" class="navbar-left" />
+                @Html.ActionLink("Computer Madness", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", id = "homeButton" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Computers", "Index", "Computers", new object { }, new { id = "buttonsTop" })</li>
+                    <li>@Html.ActionLink("Laptops", "Index", "Laptops", new object { }, new { id = "buttonsTop" })</li>
+                    <li>@Html.ActionLink("Reviews", "Index", "Reviews", new object { }, new { id = "buttonsTop" })</li>
+                    <li>@Html.ActionLink("Contact", "SendEmail", "Home", new object { }, new { id = "buttonsTop" })</li>
+                    <li>@Html.ActionLink("About Us", "About", "Home", new object { }, new { id = "buttonsTop" })</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="" style="padding: 0;">
+        @RenderBody()
+        <footer class="container-fluid" style="background-color: #d1d1d1; height: 40px; border-top: 1px solid black;">
+            <div style="width: 75%; margin: auto; padding-top: 10px;">
+                <span style="float: left; color: #00a328; font-weight: bold;">&copy; @DateTime.Now.Year</span> - <span style="color: black; font-weight: bold;">Marko Damjanov 193238</span>
+                <div class="footerIcons" style="float: right;">
+                    <a style="color: #3b5998;" href="#!" role="button">
+                        <i class="fab fa-facebook-f fa-lg"></i>
+                    </a>
+                    <a style="color: #ac2bac;" href="#!" role="button">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a>
+                    <a style="color: #55acee;" href="#!" role="button">
+                        <i class="fab fa-twitter fa-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,107 @@
+﻿body {
+    font-family: 'Arial';
+    background: url(/Content/Images/review-add.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #008c22;
+    padding-top: 50px;
+    padding-bottom: 0;
+}
+
+/* Set padding to keep content from hitting the edges */
+/*.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}*/
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.navbar-inverse {
+    background: #032630;
+}
+
+#registerLink {
+    text-align: center;
+    border: 1px solid gray;
+    border-radius: 10px;
+    margin-right: 5px;
+    color: gray;
+    transition: ease 0.3s;
+}
+
+#loginLink {
+    text-align: center;
+    border: 1px solid green;
+    border-radius: 10px;
+    color: green;
+    transition: ease 0.3s;
+}
+
+#registerLink:hover {
+    background-color: gray;
+    color: white;
+}
+
+#loginLink:hover {
+    background-color: green;
+    color: white;
+}
+
+#userLink {
+    text-align: center;
+    border: 1px solid gray;
+    border-radius: 10px;
+    margin-right: 5px;
+    color: gray;
+    transition: ease 0.3s;
+}
+
+#logoffLink {
+    text-align: center;
+    border: 1px solid green;
+    border-radius: 10px;
+    color: green;
+    transition: ease 0.3s;
+}
+
+#userLink:hover {
+    background-color: gray;
+    color: white;
+}
+
+#logoffLink:hover {
+    background-color: green;
+    color: white;
+}
+
+#buttonsTop {
+    color: lightgray;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#buttonsTop:hover {
+    color: #00a328;
+}
+
+#homeButton {
+    color: lightgray;
+    font-size: 1.6em;
+    font-weight: bold;
+}
+
+#homeButton:hover {
+    color: #00a328;
+}
